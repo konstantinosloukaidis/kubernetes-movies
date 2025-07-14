@@ -1,5 +1,11 @@
-from fastapi import FastAPI
-from app.routes import movies
+from fastapi import FastAPI, HTTPException
+from routes import movies
+
+from sqlmodel import Session, text
+from config import get_session
+from fastapi import Depends
+from models.movie import Movie
+
 
 app = FastAPI()
 
@@ -8,3 +14,11 @@ app.include_router(movies.router, prefix="/api/movies", tags=["Movies"])
 @app.get("/")
 def root():
     return {"message": "MovieDB API is running!"}
+
+@app.get("/health")
+def health_check(db: Session = Depends(get_session)):
+    try:
+        db.execute(text("SELECT 1"))
+        return {"status": "ok"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

@@ -1,16 +1,15 @@
 import os
 from dotenv import load_dotenv
 from sqlmodel import create_engine, Session
-from sqlalchemy.ext.declarative import declarative_base
 
 ENV = os.getenv("ENV", "db")
 env_file = f".env.{ENV}"
 load_dotenv(env_file)
 
-DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = os.getenv("DB_PASSWORD")
-DB_NAME = os.getenv("DB_NAME")
-DB_HOST = os.getenv("DB_HOST")
+DB_USER = os.getenv("POSTGRES_USER")
+DB_PASSWORD = os.getenv("POSTGRES_PASSWORD")
+DB_NAME = os.getenv("POSTGRES_DB")
+DB_HOST = os.getenv("POSTGRES_HOST")
 DB_PORT = os.getenv("DB_PORT")
 APP_PORT = os.getenv("APP_PORT", "8000")
 
@@ -21,5 +20,3 @@ engine = create_engine(DATABASE_URL, echo=True)
 def get_session():
     with Session(engine) as session:
         yield session
-
-Base = declarative_base()

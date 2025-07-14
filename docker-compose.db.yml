@@ -1,15 +1,36 @@
 version: "3.9"
 
 services:
-  db_dev:
+  db_service:
     image: postgres:15
     restart: always
     env_file: .env.db
     ports:
-      - "5431:5432"
+      - "5432:5432"
     volumes:
-      - postgres_data_dev:/var/lib/postgresql/data
+      - movies_data:/var/lib/postgresql/data
       - ./sql/init_schema.sql:/docker-entrypoint-initdb.d/init_schema.sql
+    networks:
+      - movie_net
+
+  api_service:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend-fastapi
+    env_file: .env.db
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db_service
+    networks:
+      - movie_net
+    volumes:
+      - ./backend/app:/app
+
 
 volumes:
-  movies_data_dev:
+  movies_data:
+
+networks:
+  movie_net:

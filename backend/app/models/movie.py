@@ -1,10 +1,13 @@
-from sqlmodel import SQLModel, Field
-from typing import Optional
+from __future__ import annotations
+from typing import List, Optional
+from sqlmodel import SQLModel, Field, Relationship
+from .user_movie import UserMovie
 
-class Movie(Base):
-    __tablename__ = "movie"
-    id = Column(Integer, primary_key=True)
-    title = Column(String)
-    poster_url = Column(String)
 
-    saved_by = relationship("User", secondary=user_movies, back_populates="saved_movies")
+class Movie(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    name: str
+    release_year: int
+    duration: int
+
+    users: List[UserMovie] = Relationship(back_populates="movie")
