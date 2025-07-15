@@ -28,6 +28,18 @@ services:
     volumes:
       - ./backend/app:/app
 
+  frontend_service:
+    build:
+      context: ./frontend-react
+      dockerfile: Dockerfile
+    container_name: frontend-react
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api_service
+    networks:
+      - movie_net
+
 
 volumes:
   movies_data:
