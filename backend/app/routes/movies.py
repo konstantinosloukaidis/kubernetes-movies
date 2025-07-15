@@ -4,7 +4,7 @@ from typing import Annotated
 from sqlmodel import Session, select
 from config import get_session
 from fastapi import Depends, Query
-from models.movie import Movie
+from models.models import Movie
 
 router = APIRouter()
 

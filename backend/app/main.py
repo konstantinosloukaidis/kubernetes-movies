@@ -4,8 +4,6 @@ from routes import movies
 from sqlmodel import Session, text
 from config import get_session
 from fastapi import Depends
-from models.movie import Movie
-
 
 app = FastAPI()
 
