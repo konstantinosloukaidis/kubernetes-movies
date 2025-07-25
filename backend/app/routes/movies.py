@@ -14,7 +14,7 @@ def get_all_movies(
     offset: int = 0,
     limit: Annotated[int, Query(le=100)] = 100,
 ) -> list[Movie]:
-    movies = db.exec(select(Movie)).all()
+    movies = db.exec(select(Movie).order_by(Movie.id)).all()
     return movies
 
 @router.get("/{movie_id}", response_model=Movie)
@@ -28,21 +28,29 @@ def get_movie_by_id(
     return movie
 
 @router.post("/{movie_id}", response_model=Movie)
-def update_movie(
+def create_or_update_movie(
     movie_id: int,
     movie: Movie,
     db: Session = Depends(get_session),
 ) -> Movie:
     existing_movie = db.get(Movie, movie_id)
-    if not existing_movie:
-        raise HTTPException(status_code=404, detail="Movie not found")
+    if existing_movie:
+        # Update fields of the existing movie
+        existing_movie.name = movie.name
+        existing_movie.release_year = movie.release_year
+        existing_movie.duration = movie.duration
+        db.add(existing_movie)
+        db.commit()
+        db.refresh(existing_movie)
+        return existing_movie
+    else:
+        # Create a new movie with the given id
+        movie.id = movie_id
+        db.add(movie)
+        db.commit()
+        db.refresh(movie)
+        return movie
     
-    movie.id = movie_id
-    db.add(movie)
-    db.commit()
-    db.refresh(movie)
-    return movie
-
 @router.delete("/{movie_id}", response_model=Movie)
 def delete_movie(
     movie_id: int,
