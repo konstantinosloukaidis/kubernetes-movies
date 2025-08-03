@@ -20,6 +20,8 @@ class User(SQLModel, table=True):
     __tablename__ = "users"
     id: int | None = Field(default=None, primary_key=True)
     username: str | None = Field(index=True, unique=True)
+    hashed_password: str | None = Field()
+    admin_user: bool = Field(default=False)
 
     movies: list["Movie"] = Relationship(back_populates="users", link_model=UserMovie)
 

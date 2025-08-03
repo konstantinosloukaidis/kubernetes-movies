@@ -1,10 +1,12 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from routes import movies
+from fastapi import Depends
+
+from app.routes import movies as moviesRouter
+from app.routes import auth as authRouter
+from app.config import get_session
 
 from sqlmodel import Session, text
-from config import get_session
-from fastapi import Depends
 
 app = FastAPI()
 
@@ -21,13 +23,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(movies.router, prefix="/api/movies", tags=["Movies"])
+app.include_router(moviesRouter.router, prefix="/api/movies", tags=["Movies"])
+app.include_router(authRouter.router, prefix="/api/auth", tags=["Auth"])
 
-@app.get("/")
-def root():
-    return {"message": "MovieDB API is running!"}
-
-@app.get("/health")
+# Check if the database connection is healthy
+@app.get("/api/health")
 def health_check(db: Session = Depends(get_session)):
     try:
         db.execute(text("SELECT 1"))

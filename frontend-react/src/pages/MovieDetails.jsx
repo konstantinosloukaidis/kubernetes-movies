@@ -3,11 +3,13 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Button, Form, Alert } from "react-bootstrap";
 import api from "../api/axiosApi";
 import { ArrowLeft } from 'react-bootstrap-icons';
+import MovieRating from './MovieRating';
 
 const MovieDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const token = localStorage.getItem('token');
   const isEdit = location.state?.edit || false;
 
   const [movie, setMovie] = useState(null);
@@ -42,16 +44,10 @@ const MovieDetails = () => {
       .catch(setShowAlert({ success: false, error: true }));
   };
 
-//   const handleDelete = () => {
-//     axios.delete(`${process.env.REACT_APP_API_URL}/movies/${id}`)
-//       .then(() => navigate("/"))
-//       .catch(console.error);
-//   };
-
   if (loading || !movie) return <div>Loading...</div>;
 
   return (
-      <div className="container-box">
+      <>
         <Alert show={showAlert.success} variant="success" onClose={() => setShowAlert(prev => ({...prev , success: false}))} dismissible >
             Movie details updated successfully!
         </Alert>
@@ -103,12 +99,12 @@ const MovieDetails = () => {
           </Button>
           {isEdit && (
             <>
-              {/* <Button variant="danger" onClick={handleDelete}>Delete</Button> */}
               <Button variant="success" onClick={handleSubmit}>Submit</Button>
             </>
           )}
         </Form>
-      </div>
+        <MovieRating movieId={id} />
+      </>
   );
 };
 

@@ -1,5 +1,6 @@
 html, body, #root {
   width: 100%;
+  height: 100%;
   margin: 0;
   padding: 0;
 }
@@ -29,3 +30,23 @@ body {
   padding-bottom: 10px;
   display: inline-block;
 }
+
+.header-container-box {
+    background-color: blanchedalmond;
+    color: black;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    margin-bottom: 50px;
+    padding: 20px;
+}
+
+.header-nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;}

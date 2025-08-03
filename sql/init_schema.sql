@@ -7,7 +7,9 @@ CREATE TABLE IF NOT EXISTS movies (
 
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
-    username TEXT NOT NULL UNIQUE
+    username TEXT NOT NULL UNIQUE,
+    hashed_password TEXT NOT NULL,
+    admin_user BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS user_movies (
@@ -26,10 +28,10 @@ INSERT INTO movies (name, release_year, duration) VALUES
 ('The Dark Knight', 2008, 152),
 ('Pulp Fiction', 1994, 154);
 
-INSERT INTO users (username) VALUES
-('john_doe'),
-('jane_smith'),
-('alice_jones');
+INSERT INTO users (username, hashed_password, admin_user) VALUES
+('john_doe', '$2b$12$VCvm66pZF0TQg5I4cazwEumS1i1LcBEscrV/dCCgbJy43ZjvSH8mK', TRUE),
+('jane_smith', '$2b$12$/xG58h09K9KEod8.FuhOVu4FTl0.osFZzxc6mbo26yYmyQXdZxZRu', FALSE),
+('alice_jones', '$2b$12$KJdZ1QgAVEzWhvILbwDoy.meHDVh7EeD2EcGVQsdGeiJ3LS0rv/SO', FALSE);
 
 INSERT INTO user_movies (user_id, movie_id, review, rating) VALUES
 (1, 1, 'An inspiring story of hope and friendship.', 5),

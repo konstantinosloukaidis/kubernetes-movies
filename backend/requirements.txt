@@ -3,3 +3,6 @@ uvicorn[standard]
 psycopg2-binary     # PostgreSQL connector
 sqlalchemy
 sqlmodel
+pyjwt
+passlib[bcrypt]
+python-multipart
