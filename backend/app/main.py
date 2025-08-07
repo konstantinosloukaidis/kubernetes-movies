@@ -8,6 +8,8 @@ from app.config import get_session
 
 from sqlmodel import Session, text
 
+from app.auth.auth import get_current_user
+
 app = FastAPI()
 
 origins = [
@@ -23,8 +25,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(moviesRouter.router, prefix="/api/movies", tags=["Movies"])
-app.include_router(authRouter.router, prefix="/api/auth", tags=["Auth"])
+app.include_router(moviesRouter.router, 
+                   prefix="/api/movies", 
+                   tags=["Movies"])
+app.include_router(authRouter.router, prefix="/api/auth", tags=["Auth"],)
 
 # Check if the database connection is healthy
 @app.get("/api/health")

@@ -47,64 +47,66 @@ const MovieDetails = () => {
   if (loading || !movie) return <div>Loading...</div>;
 
   return (
-      <>
-        <Alert show={showAlert.success} variant="success" onClose={() => setShowAlert(prev => ({...prev , success: false}))} dismissible >
-            Movie details updated successfully!
-        </Alert>
-        <Alert show={showAlert.error} variant="danger"  onClose={() => setShowAlert(prev => ({...prev , error: false}))} dismissible >
-            Error updating movie details. Please try again.
-        </Alert>
-        <h2 className="text-center">
-            <span className="heading-highlight">🎬 {isEdit ? "Edit Movie" : "View Movie"}: {movie.id}</span>
-        </h2>
-        
-        <Form>
-          <Form.Group className="mb-3">
-            <Form.Label>Name</Form.Label>
-            <Form.Control 
-              name="name" 
-              value={formData.name} 
-              onChange={handleChange} 
-              disabled={!isEdit} 
-            />
-          </Form.Group>
+    <>
+      <Alert show={showAlert.success} variant="success" onClose={() => setShowAlert(prev => ({ ...prev, success: false }))} dismissible >
+        Movie details updated successfully!
+      </Alert>
+      <Alert show={showAlert.error} variant="danger" onClose={() => setShowAlert(prev => ({ ...prev, error: false }))} dismissible >
+        Error updating movie details. Please try again.
+      </Alert>
+      <h2 className="text-center">
+        <span className="heading-highlight">🎬 Movie Details</span>
+      </h2>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Release year</Form.Label>
-            <Form.Control 
-              name="release_year" 
-              value={formData.release_year} 
-              onChange={handleChange} 
-              disabled={!isEdit} 
-            />
-          </Form.Group>
+      <Form>
+        <Form.Group className="mb-3">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            disabled={!isEdit}
+          />
+        </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Duration</Form.Label>
-            <Form.Control 
-              name="duration" 
-              value={formData.duration} 
-              onChange={handleChange} 
-              disabled={!isEdit} 
-            />
-          </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Release year</Form.Label>
+          <Form.Control
+            name="release_year"
+            value={formData.release_year}
+            onChange={handleChange}
+            disabled={!isEdit}
+          />
+        </Form.Group>
 
-          <Button 
-                variant="outline-secondary"
-                onClick={() => navigate('/movies')}
-                style={{ marginRight: '10px' }} 
-            >
-            <ArrowLeft className="me-2" />
-            Back
-          </Button>
-          {isEdit && (
-            <>
-              <Button variant="success" onClick={handleSubmit}>Submit</Button>
-            </>
-          )}
-        </Form>
+        <Form.Group className="mb-3">
+          <Form.Label>Duration</Form.Label>
+          <Form.Control
+            name="duration"
+            value={formData.duration}
+            onChange={handleChange}
+            disabled={!isEdit}
+          />
+        </Form.Group>
+
+        <Button
+          variant="outline-secondary"
+          onClick={() => navigate('/movies')}
+          style={{ marginRight: '10px' }}
+        >
+          <ArrowLeft className="me-2" />
+          Back
+        </Button>
+        {isEdit && (
+          <>
+            <Button variant="success" onClick={handleSubmit}>Submit</Button>
+          </>
+        )}
+      </Form>
+      {token &&
         <MovieRating movieId={id} />
-      </>
+      }
+    </>
   );
 };
 
