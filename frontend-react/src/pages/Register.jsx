@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import api from "../api/axiosApi";
 
-const Login = () => {
+const Register = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -11,32 +11,25 @@ const Login = () => {
     password: ''
   });
 
-  const handleLogin = () => {
-    const data = new URLSearchParams({
-      username: formData.username,
-      password: formData.password
-    });
-
-    const headers = {
-      'Content-Type': 'application/x-www-form-urlencoded'
+  const handleRegister = () => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
     };
-
-    api.post('/api/auth/login', data, { headers })
-      .then(res => {
-        console.log("Login successful");
-        const token = res.data.access_token;
-        localStorage.setItem('token', token);
-        navigate('/movies');
+    api.post('/api/auth/register', formData, config)
+      .then(() => {
+        navigate('/login');
       })
       .catch(err => {
-        console.error("Login error:", err.response.data.detail);
+        console.error("Register error:", err.response.data.detail);
       });
   };
 
   return (
     <>
       <h2 className="text-center">
-        <span className="heading-highlight">Login</span>
+        <span className="heading-highlight">Register</span>
       </h2>
 
       <Form>
@@ -62,13 +55,13 @@ const Login = () => {
 
         <Button
           variant="outline-secondary"
-          onClick={handleLogin}
+          onClick={handleRegister}
           style={{ marginRight: '10px' }}
-        >            Login
+        >            Register
         </Button>
       </Form>
     </>
   );
 };
 
-export default Login;
+export default Register;

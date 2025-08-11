@@ -49,7 +49,6 @@ const MovieRating = ({ movieId }) => {
       }
     };
 
-    console.log(reviewFormatData)
     api.post(`/api/movies/review/${movieId}`, reviewFormatData, config)
       .then(() => setShowAlert({ success: true, error: false }))
       .catch(() => setShowAlert({ success: false, error: true }));
