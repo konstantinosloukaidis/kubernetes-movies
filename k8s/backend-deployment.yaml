@@ -14,7 +14,33 @@ spec:
     spec:
       containers:
         - name: backend
-          image: kubernetes-movies-backend-service:latest
-          imagePullPolicy: Never
+          image: konstantinosal/kubernetes-movies-backend-service:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: config
+                  key: POSTGRES_USER
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: config
+                  key: POSTGRES_DB
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: config
+                  key: POSTGRES_HOST
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: config
+                  key: DB_PORT
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: POSTGRES_PASSWORD
