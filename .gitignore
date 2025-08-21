@@ -8,3 +8,4 @@ __pycache__
 /k8sdashboard
 
 generate_mock_pswd.py
+kafka-test.py
