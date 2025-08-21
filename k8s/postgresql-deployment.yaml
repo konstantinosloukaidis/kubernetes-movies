@@ -15,6 +15,7 @@ spec:
       containers:
         - name: postgres
           image: postgres:15
+          imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 5432
           env:
@@ -36,25 +37,12 @@ spec:
           volumeMounts:
             - name: postgres-data
               mountPath: /var/lib/postgresql/data
-            - name: init-script
-              mountPath: /docker-entrypoint-initdb.d/init_schema.sql
-              subPath: init_schema.sql
-          # readinessProbe:
-          #   exec:
-          #     command:
-          #       - pg_isready
-          #       - -U
-          #       - admin
-          #       - -d
-          #       - moviedb
-          #   initialDelaySeconds: 10
-          #   periodSeconds: 5
-          #   timeoutSeconds: 2
-          #   failureThreshold: 6
+            - name: postgres-initdb
+              mountPath: /docker-entrypoint-initdb.d
       volumes:
         - name: postgres-data
           persistentVolumeClaim:
             claimName: postgres-volume-claim
-        - name: init-script
+        - name: postgres-initdb
           configMap:
-           name: postgres-init-script
+            name: postgres-init-script
