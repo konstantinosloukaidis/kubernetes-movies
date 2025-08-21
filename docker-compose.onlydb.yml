@@ -2,9 +2,9 @@ services:
   db_service:
     image: postgres:15
     restart: always
-    env_file: .env.db
+    env_file: .env.db.local
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - movies_data:/var/lib/postgresql/data
       - ./sql/init_schema.sql:/docker-entrypoint-initdb.d/init_schema.sql

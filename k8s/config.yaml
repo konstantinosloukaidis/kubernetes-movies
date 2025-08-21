@@ -5,7 +5,7 @@ metadata:
 data:
   POSTGRES_USER: admin
   POSTGRES_DB: moviedb
-  POSTGRES_HOST: postgres-service
+  POSTGRES_HOST: postgres
   BACKEND_HOST: backend-service
   DB_PORT: "5432"
   APP_PORT: "8000"

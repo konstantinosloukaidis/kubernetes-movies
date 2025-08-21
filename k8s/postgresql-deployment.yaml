@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: postgres-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: postgres
@@ -16,7 +16,7 @@ spec:
         - name: postgres
           image: postgres:15
           ports:
-            - containerPort: 5433
+            - containerPort: 5432
           env:
             - name: POSTGRES_USER
               valueFrom:
@@ -39,6 +39,18 @@ spec:
             - name: init-script
               mountPath: /docker-entrypoint-initdb.d/init_schema.sql
               subPath: init_schema.sql
+          # readinessProbe:
+          #   exec:
+          #     command:
+          #       - pg_isready
+          #       - -U
+          #       - admin
+          #       - -d
+          #       - moviedb
+          #   initialDelaySeconds: 10
+          #   periodSeconds: 5
+          #   timeoutSeconds: 2
+          #   failureThreshold: 6
       volumes:
         - name: postgres-data
           persistentVolumeClaim:
