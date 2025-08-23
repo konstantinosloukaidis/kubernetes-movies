@@ -6,11 +6,13 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgres
+      app: moviesapp
+      tier: database
   template:
     metadata:
       labels:
-        app: postgres
+        app: moviesapp
+        tier: database
     spec:
       containers:
         - name: postgres

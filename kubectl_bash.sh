@@ -17,3 +17,13 @@ kubectl apply -f k8s/postgresql-init-script.yaml
 kubectl apply -f k8s/postgresql-service.yaml
 kubectl apply -f k8s/postgresql-deployment.yaml
 
+# kubectl delete -f k8s/backend-deployment.yaml
+# kubectl delete -f k8s/backend-service.yaml
+# kubectl apply -f k8s/backend-deployment.yaml
+# kubectl apply -f k8s/backend-service.yaml
+
+# kubectl delete -f k8s/frontend-deployment.yaml
+# kubectl delete -f k8s/frontend-service.yaml
+# kubectl apply -f k8s/frontend-deployment.yaml
+# kubectl apply -f k8s/frontend-service.yaml
+
