@@ -21,7 +21,7 @@ const Login = () => {
       'Content-Type': 'application/x-www-form-urlencoded'
     };
 
-    api.post('/api/auth/login', data, { headers })
+    api.post('/auth/login', data, { headers })
       .then(res => {
         console.log("Login successful");
         const token = res.data.access_token;

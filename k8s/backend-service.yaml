@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: backend-service
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     tier: backend
     app: moviesapp
@@ -11,4 +11,3 @@ spec:
     - protocol: TCP
       port: 8000
       targetPort: 8000
-      nodePort: 30081

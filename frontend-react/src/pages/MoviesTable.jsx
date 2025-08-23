@@ -8,7 +8,7 @@ const MoviesTable = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    api.get("/api/movies")
+    api.get("/movies")
       .then((res) => setMovieRatigs(res.data))
       .catch((err) => console.error(err));
   }, []);

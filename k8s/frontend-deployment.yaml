@@ -17,13 +17,12 @@ spec:
       containers:
         - name: frontend
           image: konstantinosal/kubernetes-movies-frontend-service:latest
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           ports:
             - containerPort: 3000
           env:
             - name: REACT_APP_BACKEND_HOST
-              value: "http://127.0.0.1:41977"
-              # valueFrom:
-              #   configMapKeyRef:
-              #     name: config
-              #     key: BACKEND_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: config
+                  key: BACKEND_HOST

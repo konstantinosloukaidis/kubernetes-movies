@@ -22,7 +22,7 @@ const MovieDetails = () => {
 
   useEffect(() => {
     console.log("Fetching movie details for ID:", id);
-    api.get(`/api/movies/${id}`)
+    api.get(`/movies/${id}`)
       .then(res => {
         setMovie(res.data);
         setFormData(res.data);
@@ -39,7 +39,7 @@ const MovieDetails = () => {
   };
 
   const handleSubmit = () => {
-    api.post(`/api/movies/${id}`, formData)
+    api.post(`/movies/${id}`, formData)
       .then(() => setShowAlert({ success: true, error: false }))
       .catch(setShowAlert({ success: false, error: true }));
   };

@@ -23,7 +23,7 @@ const MovieRating = ({ movieId }) => {
       },
     };
 
-    api.get(`/api/movies/review/${movieId}`, config)
+    api.get(`/movies/review/${movieId}`, config)
       .then(res => {
         setReviewFormData(res.data);
         setHasReview(true);
@@ -49,7 +49,7 @@ const MovieRating = ({ movieId }) => {
       }
     };
 
-    api.post(`/api/movies/review/${movieId}`, reviewFormatData, config)
+    api.post(`/movies/review/${movieId}`, reviewFormatData, config)
       .then(() => setShowAlert({ success: true, error: false }))
       .catch(() => setShowAlert({ success: false, error: true }));
   };

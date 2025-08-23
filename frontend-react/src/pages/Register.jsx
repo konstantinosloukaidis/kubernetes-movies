@@ -17,7 +17,7 @@ const Register = () => {
         'Content-Type': 'application/json'
       }
     };
-    api.post('/api/auth/register', formData, config)
+    api.post('/auth/register', formData, config)
       .then(() => {
         navigate('/login');
       })

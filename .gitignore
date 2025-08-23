@@ -9,3 +9,6 @@ __pycache__
 
 generate_mock_pswd.py
 kafka-test.py
+rebuild.sh
+kubectl_bash_d.sh
+kubectl_bash.sh
