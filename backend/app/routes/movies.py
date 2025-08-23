@@ -6,7 +6,6 @@ from sqlmodel import Session, select
 from sqlalchemy import func
 from sqlmodel import Session, select
 
-from app.config import get_session
 from pydantic import BaseModel
 
 from app.dtos.MovieRatingDto import MovieWithRatingDTO

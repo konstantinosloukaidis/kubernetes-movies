@@ -17,9 +17,16 @@ spec:
       containers:
         - name: backend
           image: konstantinosal/kubernetes-movies-backend-service:latest
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           ports:
             - containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 10
           env:
             - name: POSTGRES_USER
               valueFrom:

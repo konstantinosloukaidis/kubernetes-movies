@@ -8,8 +8,6 @@ from app.config import get_session
 
 from sqlmodel import Session, text
 
-from app.auth.auth import get_current_user
-
 app = FastAPI()
 
 origins = [

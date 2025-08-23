@@ -4,6 +4,10 @@ metadata:
   name: frontend-deployment
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: moviesapp
+      tier: frontend
   template:
     metadata:
       labels:
@@ -13,12 +17,13 @@ spec:
       containers:
         - name: frontend
           image: konstantinosal/kubernetes-movies-frontend-service:latest
-          imagePullPolicy: Never
+          imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 3000
           env:
-            - name: BACKEND_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: config
-                  key: BACKEND_HOST
+            - name: REACT_APP_BACKEND_HOST
+              value: "http://127.0.0.1:41977"
+              # valueFrom:
+              #   configMapKeyRef:
+              #     name: config
+              #     key: BACKEND_HOST

@@ -10,3 +10,6 @@ kubectl delete -f ./k8s/postgresql-persistent-volume.yaml
 
 kubectl delete -f ./k8s/backend-deployment.yaml
 kubectl delete -f ./k8s/backend-service.yaml
+
+kubectl delete -f ./k8s/frontend-deployment.yaml
+kubectl delete -f ./k8s/frontend-service.yaml
