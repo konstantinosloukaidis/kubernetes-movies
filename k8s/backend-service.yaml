@@ -5,7 +5,8 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: backend
+    tier: backend
+    app: moviesapp
   ports:
     - protocol: TCP
       port: 8000

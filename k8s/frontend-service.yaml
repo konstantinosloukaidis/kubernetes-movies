@@ -5,7 +5,8 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: frontend
+    app: moviesapp
+    tier: frontend
   ports:
     - protocol: TCP
       port: 3000

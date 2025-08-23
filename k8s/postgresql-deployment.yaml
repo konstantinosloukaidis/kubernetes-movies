@@ -6,18 +6,20 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgres
+      app: moviesapp
+      tier: database
   template:
     metadata:
       labels:
-        app: postgres
+        app: moviesapp
+        tier: database
     spec:
       containers:
         - name: postgres
           image: postgres:15
           imagePullPolicy: "IfNotPresent"
           ports:
-            - containerPort: 5433
+            - containerPort: 5432
           env:
             - name: POSTGRES_USER
               valueFrom:
